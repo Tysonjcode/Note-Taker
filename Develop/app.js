@@ -3,8 +3,8 @@
 const express = require('express');
 
 // getting access to the web js and api jsfile inside the router
-const webRouter = require('./routes/web')
-const apiRouter = require('./routes/api');
+const webRouter = require('./routes/htmlRoute')
+const apiRouter = require('./routes/apiRoute');
 
 // putting the express method into a variable.
 const app = express();

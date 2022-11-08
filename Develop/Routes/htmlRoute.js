@@ -1,23 +1,20 @@
 // DEPENDENCIES
 // We need to include the path package to get the correct file path for our html
-const app = require('express').Router();
+const router = require('express').Router();
 const path = require('path');
 
 
-// ROUTING
-
-    // => HTML GET Requests
-    // Below code handles when users "visit" a page.
-    // In each of the below cases the user is shown an HTML page of content
-
-
-    app.get('/notes', (req, res) => {
-        res.sendFile(path.join(__dirname, '../public/notes.html'));
-    })
+router.get('/notes', (req, res) => {
     
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, '../public/index.html'));
-    });
+    const notes = path.join(__dirname, '../public/notes.html');
+    res.sendFile(notes);
+});
 
-    module.exports = app;
-    
+router.get('/', (req, res) => {
+
+    const index = path.join(__dirname, '../public/index.html');
+    res.sendFile(index);
+})
+
+// it is then exported to be used in other files such as app.js
+module.exports = router;

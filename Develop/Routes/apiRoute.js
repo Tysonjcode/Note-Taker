@@ -17,7 +17,8 @@ function getNotes(){
     const json = fs.readFileSync(dbPath, 'utf-8');
     //json parse
     try{
-        return JSON.parse(json);
+       const response = JSON.parse(json);
+       return [...response]
     }catch(err){
         return [];
     }

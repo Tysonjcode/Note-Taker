@@ -23,6 +23,9 @@ app.use(express.urlencoded({extended: true}))
 app.use(webRouter);
 app.use(apiRouter);
 
+app.get("/", (req, res, next) => {
+    res.sendFile(__dirname + '/public/index.html');
+});
 // listen function binds and listens to connections on the specified host and port.
 app.listen(PORT, () => {
     console.log(`app is running on http://localhost:${PORT}`)

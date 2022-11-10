@@ -1,32 +1,42 @@
+// DEPENDENCIES
+// Series of npm packages that we will use to give our server useful functionality
 
-// Requiring express to get access to the express methods
 const express = require('express');
+const htmlRoutes = require('./routes/htmlRoutes');
+const apiRoutes = require('./routes/apiRoutes');
 
-// getting access to the web js and api jsfile inside the router
-const webRouter = require('./routes/htmlRoute')
-const apiRouter = require('./routes/apiRoute');
+// EXPRESS CONFIGURATION
+// This sets up the basic properties for our express server
 
-// putting the express method into a variable.
+// Tells node that we are creating an "express" server
 const app = express();
 
+// Sets an initial port. We"ll use this later in our listener
+const PORT = process.env.PORT || 2323;
 
-// defining the port number for the app to listen into. process.env allows for heroku.
-const PORT = process.env.PORT || 6100;
-
-// Middleware that allows use of assets files such as CSS and JS files
-app.use(express.static(__dirname + '/public' ));
+// Sets up the Express app to handle data parsing
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.urlencoded({extended: true}))
+
+// Sets up the Express app to serve static assets directly
+app.use(express.static('public'));
 
 
-// use method will puts the middleware function to the specified path.
-app.use(webRouter);
-app.use(apiRouter);
+// ROUTER
+// The below points our server to a series of "route" files.
+// These routes give our server a "map" of how to respond when users visit or request data from various URLs.
 
-app.get("/", (req, res, next) => {
-    res.sendFile(__dirname + '/public/index.html');
-});
-// listen function binds and listens to connections on the specified host and port.
+app.use('/api', apiRoutes);
+app.use('/', htmlRoutes);
+
+
+// LISTENER
+// The below code effectively "starts" our server
+
 app.listen(PORT, () => {
-    console.log(`app is running on http://localhost:${PORT}`)
-})
+    console.log(`App listening on PORT: ${PORT}`);
+  });
+
+
+
+// END server.js HERE

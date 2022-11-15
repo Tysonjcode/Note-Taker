@@ -1,3 +1,4 @@
+// Dependancies 
 const app = require('express').Router();
 const fs = require('fs');
 let db = require('../db/db.json');
@@ -10,14 +11,15 @@ app.get('/notes', (req, res) => {
 
 });
 
+// this is the basic form of model i chose to use
 app.post('/notes', (req, res) => {
-  let newNote = { // most basic form of a model
+  let newNote = {
     id: Math.floor(Math.random() * 1000),
     title: req.body.title,
     text: req.body.text
   }
 
-  // most basic form of a controller
+  // this is a basic form of controller i chose to use
   db.push(newNote);
   fs.writeFileSync('./db/db.json', JSON.stringify(db), (err, res) => {
     if(err) throw err;
@@ -26,7 +28,7 @@ app.post('/notes', (req, res) => {
   res.json(db);
 
 })
-
+// this enables to delete a note
 app.delete('/notes/:id', (req, res) => {
   let db = require('../db/db.json');
   

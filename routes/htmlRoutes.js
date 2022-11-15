@@ -1,5 +1,4 @@
-// DEPENDENCIES
-// We need to include the path package to get the correct file path for our html
+// DEPENDENCIES - including the path package to get the correct file path for our html
 const path = require('path');
 const app = require('express').Router();
 
